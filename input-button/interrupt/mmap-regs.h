@@ -1,0 +1,12 @@
+#define RCGC_GPIO    *((volatile unsigned int *)0x400FE108)
+#define GPIOF_DATA   *((volatile unsigned int *)0x400253FC)
+#define GPIOF_DIR    *((volatile unsigned int *)0x40025400)
+#define GPIOF_DEN    *((volatile unsigned int *)0x4002551C)
+
+#define GPIOF_IS     *((volatile unsigned int *)0x40025404)
+#define GPIOF_IBE    *((volatile unsigned int *)0x40025408)  
+#define GPIOF_IEV    *((volatile unsigned int *)0x4002540C)
+#define GPIOF_IM     *((volatile unsigned int *)0x40025410)
+#define GPIOF_IC     *((volatile unsigned int *)0x4002541C)
+#define NVIC_EN0     *((volatile unsigned int *)0xE000E100)
+#define NVIC_ISPR0   *((volatile unsigned int *)0xE000E200)
