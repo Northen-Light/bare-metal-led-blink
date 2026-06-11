@@ -8,11 +8,13 @@ extern char _start_bss_;
 extern char _end_bss_;
 extern void main();
 
-void Reset_Handler();
-void Hardfault_Handler();
-void EXTI0_IRQHandler();
+volatile int g_ms_ticks = 0;
+volatile int last_press = 0;
 
-volatile int count = 0;
+void Reset_Handler(void);
+void Hardfault_Handler(void);
+void SysTick_Handler(void);
+void EXTI0_IRQHandler(void);
 
 __attribute__((section(".isr_vector")))
 int *vector_table[] = {
@@ -31,7 +33,7 @@ int *vector_table[] = {
   0,
   0,
   0,
-  0,
+  (int *) SysTick_Handler,
   0,
   0,
   0,
@@ -41,7 +43,7 @@ int *vector_table[] = {
   (int *) EXTI0_IRQHandler
 };
 
-void Reset_Handler() {
+void Reset_Handler(void) {
   char *end_rodata = &_end_rodata_;
   char *start_data = &_start_data_;
   char *end_data = &_end_data_;
@@ -59,16 +61,27 @@ void Reset_Handler() {
     *start_bss = 0;
     start_bss++;
   }
+
+  SYST_RVR = 8000 - 1;
+  SYST_CSR = 0x0;
+  SYST_CSR = 0x7;
   
   main();
 }
 
-void Hardfault_Handler() {
+void Hardfault_Handler(void) {
   while(1);
 }
 
-void EXTI0_IRQHandler() {
+void EXTI0_IRQHandler(void) {
   EXTI0_PR = (1 << 0);
-  GPIOC_ODR ^= (1 << 13);
-  count++;
+  int now = g_ms_ticks;
+  if (now - last_press >= 50) {
+    last_press = now;
+    GPIOC_ODR ^= (1 << 13);
+  }
+}
+
+void SysTick_Handler(void) {
+  g_ms_ticks++;
 }

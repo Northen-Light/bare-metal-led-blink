@@ -13,3 +13,7 @@
 #define EXTI0_PR        *((volatile unsigned int *) 0x40010414)
 
 #define NVIC_ISER0      *((volatile unsigned int *) 0xE000E100)
+
+#define SYST_CSR        *((volatile unsigned int *) 0xE000E010)
+#define SYST_RVR        *((volatile unsigned int *) 0xE000E014)
+#define SYST_CVR        *((volatile unsigned int *) 0xE000E018)
