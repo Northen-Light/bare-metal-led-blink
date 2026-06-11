@@ -1,6 +1,6 @@
 #include "mmap-regs.h"
 
-extern int _estack;
+extern char _estack;
 extern char _end_rodata_;
 extern char _start_data_;
 extern char _end_data_;
@@ -17,13 +17,11 @@ void SysTick_Handler(void);
 void EXTI0_IRQHandler(void);
 
 __attribute__((section(".isr_vector")))
-int *vector_table[] = {
+char *vector_table[] = {
   &_estack,
-  (int *)Reset_Handler,
+  (char *)Reset_Handler,
   0,
-  (int *)Hardfault_Handler,
-  0,
-  0,
+  (char *)Hardfault_Handler,
   0,
   0,
   0,
@@ -33,14 +31,16 @@ int *vector_table[] = {
   0,
   0,
   0,
-  (int *) SysTick_Handler,
+  0,
+  0,
+  (char *) SysTick_Handler,
   0,
   0,
   0,
   0,
   0,
   0,
-  (int *) EXTI0_IRQHandler
+  (char *) EXTI0_IRQHandler
 };
 
 void Reset_Handler(void) {
