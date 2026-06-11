@@ -1,9 +1,5 @@
 #include "mmap-regs.h"
-
-void toggle_pc13() {
-  GPIOC_ODR ^= (1 << 13);
-}
-
+ 
 void main(void) {
   // Enable clocks for AFIO
   RCC_APB2ENR |= (1 << 0);
@@ -19,16 +15,15 @@ void main(void) {
   GPIOC_CRH &= ~(0xF << 20);
   GPIOC_CRH |= (2 << 20);
 
-  // turn off led
+  // Setting this bit to 1, turns LED off
   GPIOC_ODR |= (1 << 13);
 
   // EXTI0 config
-  AFIO_EXTI0CR1 &= ~(0xF << 0);
+  AFIO_EXTICR1 &= ~(0xF << 0);
   EXTI0_IMR |= (1 << 0);
   EXTI0_FTSR |= (1 << 0);
   EXTI0_RTSR &= ~(1 << 0);
-
-  // Enable nvic to accept EXTI0 requests
+  // Enable NVIC to accept EXTI0 IRQ6 requests
   NVIC_ISER0 |= (1 << 6);
 
   while(1);

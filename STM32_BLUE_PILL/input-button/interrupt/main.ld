@@ -13,13 +13,18 @@ SECTIONS {
   
   .rodata : {
     *(.rodata)
-  } > FLASH
+    _end_rodata_ = .;
+  } > FLASH 
   
   .data : {
+    _start_data_ = .;
     *(.data)
-  } > SRAM
+    _end_data_ = .;
+  } > SRAM AT > FLASH
 
   .bss : {
+    _start_bss_ = .;
     *(.bss)
-  } > SRAM
+    _end_bss_ = .;
+  } > SRAM AT > SRAM
 }

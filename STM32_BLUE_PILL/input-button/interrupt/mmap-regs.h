@@ -6,7 +6,7 @@
 #define GPIOA_IDR       *((volatile unsigned int *) 0x40010808) 
 #define GPIOA_ODR       *((volatile unsigned int *) 0x4001080C)
 
-#define AFIO_EXTI0CR1   *((volatile unsigned int *) 0x40010008)
+#define AFIO_EXTICR1    *((volatile unsigned int *) 0x40010008)
 #define EXTI0_IMR       *((volatile unsigned int *) 0x40010400)
 #define EXTI0_FTSR      *((volatile unsigned int *) 0x4001040C)
 #define EXTI0_RTSR      *((volatile unsigned int *) 0x40010408)
