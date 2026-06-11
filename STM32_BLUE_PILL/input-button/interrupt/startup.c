@@ -8,8 +8,8 @@ extern char _start_bss_;
 extern char _end_bss_;
 extern void main();
 
-volatile int g_ms_ticks = 0;
-volatile int last_press = 0;
+volatile unsigned int g_ms_ticks = 0;
+volatile unsigned int last_press = 0;
 
 void Reset_Handler(void);
 void Hardfault_Handler(void);
