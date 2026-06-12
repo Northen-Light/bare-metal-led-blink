@@ -10,6 +10,7 @@ extern void main();
 
 volatile unsigned int g_ms_ticks = 0;
 volatile unsigned int last_press = 0;
+volatile unsigned int counter = 0;
 
 void Reset_Handler(void);
 void Hardfault_Handler(void);
@@ -76,9 +77,12 @@ void Hardfault_Handler(void) {
 void EXTI0_IRQHandler(void) {
   EXTI0_PR = (1 << 0);
   int now = g_ms_ticks;
-  if (now - last_press >= 50) {
+  // Its taking sometimes close to 500ms for mechanical input button bouncing 
+  // to settle
+  if (now - last_press >= 500) {
     last_press = now;
     GPIOC_ODR ^= (1 << 13);
+    counter++;
   }
 }
 
