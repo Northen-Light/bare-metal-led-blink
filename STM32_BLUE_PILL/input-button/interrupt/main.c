@@ -22,7 +22,7 @@ void main(void) {
   AFIO_EXTICR1 &= ~(0xF << 0);
   EXTI0_IMR |= (1 << 0);
   EXTI0_FTSR |= (1 << 0);
-  EXTI0_RTSR &= ~(1 << 0);
+  EXTI0_RTSR |= (1 << 0);
   // Enable NVIC to accept EXTI0 IRQ6 requests
   NVIC_ISER0 |= (1 << 6);
 
