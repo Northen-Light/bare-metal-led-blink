@@ -1,4 +1,4 @@
-extern void main();
+extern void main(void);
 extern char _estack;
 
 void Reset_Handler(void);
