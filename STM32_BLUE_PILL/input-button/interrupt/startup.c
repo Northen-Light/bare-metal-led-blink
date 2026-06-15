@@ -67,7 +67,7 @@ void Reset_Handler(void) {
   }
 
   SYST_RVR = 8000 - 1;
-  SYST_CSR = 0x0;
+  SYST_CVR = 0x0;
   SYST_CSR = 0x7;
   
   main();
