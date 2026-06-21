@@ -1,11 +1,10 @@
-#include "mmap-regs.h"
+#include "systick.h"
 
 extern void main();
 extern int _estack;
 
 void Reset_Handler();
 void Hardfault_Handler();
-void Systick_Handler();
 
 __attribute__((section(".isr_vector")))
 int *vector_table[] = {
@@ -33,8 +32,4 @@ void Reset_Handler() {
 
 void Hardfault_Handler() {
   while(1);
-}
-
-void Systick_Handler() {
-  GPIOC_ODR ^= (1 << 13);
 }
